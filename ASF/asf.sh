@@ -2,6 +2,18 @@
 
 # execute the bash script for ASF Steam farm | Code for Raspbian OS running Debian Jessie.
 
+# colors and bold
+r=$(tput setaf 1)
+g=$(tput setaf  2)
+bold=$(tput bold)
+res=$(tput sgr0)
+
+# check if executed by root
+if ! [ $(id -u) = 0 ]; then
+        echo "${b}${r}[ERROR]: YOU MUST BE ROOT TO EXECUTE THIS SCRIPT.${res}"
+        exit 1
+fi
+
 # local variables
 user=$(whoami)
 date=$(date +%F)
@@ -24,15 +36,8 @@ done
 loginfo=$(echo "ASF has been executed by $user | $hostname.") >> $file
 execution=$(echo "Time of execution: $date $hours") >> $file
 
-# colors and bold
-r=$(tput setaf 1)
-g=$(tput setaf  2)
-bold=$(tput bold)
-res=$(tput sgr0)
-
 # open ASF and execute it, making a log file
 echo $usergreeting >> $file
-echo "${b}${r}[WARNING]: YOU MUST BE ROOT TO HAVE NO ERRORS."
 echo "${b}${g}$usergreeting"; sleep 3s
 echo "${b}${g}Starting to run ArchiSteamFarm."
 echo "${b}${g}Saving log to the default location of ${r}${b}$file."
